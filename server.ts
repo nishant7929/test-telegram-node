@@ -7,6 +7,10 @@ const port = 5050;
 // Middleware to parse JSON requests
 app.use(express.json());
 
+app.get("/", (req, res) => {
+	res.send("Hello World!");
+});
+
 app.get('/saved-messages', async (req, res) => {
   try {
     const messages = await getSavedMessages();
