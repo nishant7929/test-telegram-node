@@ -10,8 +10,8 @@ const SESSION = new StringSession(savedSession);
 
 let globalTelegramClient: TelegramClient | null = null;
 let cachedMessages: Api.Message[] = []; // Store cached messages
-let lastFetchedTime = 0; // Timestamp of last fetch
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+// let lastFetchedTime = 0; // Timestamp of last fetch
+// const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 export const getTelegramClient = async (): Promise<TelegramClient> => {
   if (!globalTelegramClient) {
@@ -30,7 +30,7 @@ export const getSavedMessages = async () => {
   const now = Date.now();
 
   // Check if cached data is still valid
-  if (cachedMessages.length > 0 && now - lastFetchedTime < CACHE_DURATION) {
+  if (cachedMessages.length > 0) {
     console.log('Returning cached messages');
     return { origin: 'cache', cachedMessages };
   }
@@ -39,9 +39,7 @@ export const getSavedMessages = async () => {
   const client = await getTelegramClient();
   const me = await client.getMe();
   cachedMessages = await client.getMessages(me.id);
-
-  // Update cache timestamp
-  lastFetchedTime = now;
+  client.disconnect();
   
   return { origin: 'telegram', cachedMessages };
 };
