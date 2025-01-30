@@ -11,6 +11,10 @@ app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
+app.get("/home", (req, res) => {
+	res.send("Hello Home!");
+});
+
 app.get('/saved-messages', async (req, res) => {
   try {
     const messages = await getSavedMessages();
@@ -24,7 +28,7 @@ app.get('/saved-messages', async (req, res) => {
 // Start server and ensure Telegram client is connected
 app.listen(port, async () => {
   try {
-    await getSavedMessages(); // Ensure Telegram client is connected at startup
+    // await getSavedMessages(); // Ensure Telegram client is connected at startup
     console.log(`Server is running at http://localhost:${port}`);
   } catch (error) {
     console.error('Error connecting to Telegram client:', error);
