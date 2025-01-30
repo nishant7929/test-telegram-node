@@ -17,7 +17,8 @@ app.get("/home", (req, res) => {
 
 app.get('/saved-messages', async (req, res) => {
   try {
-    const messages = await getSavedMessages();
+    const { limit } = req.query
+    const messages = await getSavedMessages(Number(limit));
     res.json({ success: true, messages });
   } catch (error) {
     console.error('Error fetching saved messages:', error);

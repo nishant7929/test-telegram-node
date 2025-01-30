@@ -26,13 +26,13 @@ export const getTelegramClient = async (): Promise<TelegramClient> => {
   return globalTelegramClient;
 };
 
-export const getSavedMessages = async () => {
+export const getSavedMessages = async (limit: number) => {
   const now = Date.now();
 
   // Check if cached data is still valid
   if (cachedMessages.length > 0) {
     console.log('Returning cached messages');
-    return { origin: 'cache', cachedMessages };
+    return { origin: 'cache', messages: limit ? cachedMessages.slice(0, limit) : cachedMessages  };
   }
 
   console.log('Fetching new messages from Telegram...');
