@@ -51,7 +51,7 @@ export const getSavedMessages = async (limit: number) => {
   const me = await client.getMe();
   const newMessages = await client.getMessages(me.id);
   await writeCache(newMessages);
-  client.disconnect();
+  // client.disconnect();
 
   return { origin: 'telegram', messages: limit ? newMessages.slice(0, limit) : newMessages };
 };
