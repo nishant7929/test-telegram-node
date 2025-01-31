@@ -22,7 +22,7 @@ app.get('/saved-messages', async (req, res) => {
     res.json({ success: true, messages });
   } catch (error) {
     console.error('Error fetching saved messages:', error);
-    res.status(500).json({ success: false, message: 'Error fetching saved messages' });
+    res.status(500).json({ success: false, message: 'Error fetching saved messages' + error });
   }
 });
 
